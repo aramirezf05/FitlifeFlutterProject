@@ -4,6 +4,8 @@ import 'package:fitlife/screens/workout/workout_widgets.dart';
 import 'package:fitlife/utils/string_constants.dart';
 import 'package:flutter/material.dart';
 
+import 'model/user.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -58,9 +60,10 @@ class _MyAppState extends State<MyApp> {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  const MyHomePage({super.key, required this.title, required this.user});
 
   final String title;
+  final User user;
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -88,7 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void _onSettingsPressed() {
     Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (BuildContext context) => SettingsScreen(),
+          builder: (BuildContext context) => SettingsScreen(user: widget.user,),
         ),
     );
   }

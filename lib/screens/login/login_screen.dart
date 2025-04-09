@@ -26,7 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
       print('Login successful: Welcome ${user.firstName}');
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (context) => MyHomePage(title: appTitle),
+          builder: (context) => MyHomePage(title: appTitle, user: user,),
         ),
       );
     } else {

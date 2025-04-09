@@ -51,7 +51,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     print('Registration successful');
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
-        builder: (context) => MyHomePage(title: appTitle),
+        builder: (context) => MyHomePage(title: appTitle, user: user),
       ),
     );
   }

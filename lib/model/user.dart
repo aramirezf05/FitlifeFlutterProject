@@ -1,10 +1,12 @@
 
 class User {
-  final String firstName;
-  final String lastName;
-  final String email;
-  final String username;
+  late String firstName;
+  late String lastName;
+  late String email;
+  late String username;
   final String password;
+  late double weight;
+  late double height;
 
   User({
     required this.firstName,
@@ -12,6 +14,8 @@ class User {
     required this.email,
     required this.username,
     required this.password,
+    this.weight = 0.0,
+    this.height = 0.0,
   });
 }
 

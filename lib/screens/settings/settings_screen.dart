@@ -2,10 +2,13 @@ import 'package:fitlife/main.dart';
 import 'package:fitlife/utils/string_constants.dart';
 import 'package:fitlife/utils/fitlife_app_bar.dart';
 import 'package:flutter/material.dart';
+import '../../model/user.dart';
 import 'account_screen.dart';
 
 class SettingsScreen extends StatefulWidget {
-  const SettingsScreen({super.key});
+  const SettingsScreen({super.key, required this.user});
+
+  final User user;
 
   @override
   State<StatefulWidget> createState() => _SettingsScreen();
@@ -29,7 +32,7 @@ class _SettingsScreen extends State<SettingsScreen> {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => AccountScreen()),
+                MaterialPageRoute(builder: (context) => AccountScreen(user: widget.user)),
               );
             },
           ),

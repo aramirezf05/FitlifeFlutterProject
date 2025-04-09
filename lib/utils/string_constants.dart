@@ -9,6 +9,7 @@ const String accountLabel = "Account";
 const String logoutLabel = "Logout";
 
 // Account screen constants
+const String usernameTextEdit = "Username";
 const String nameTextEdit = "Name";
 const String surnameTextEdit = "Surname";
 const String weightTextEdit = "Weight (kg)";
