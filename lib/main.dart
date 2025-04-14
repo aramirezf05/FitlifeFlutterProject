@@ -136,7 +136,7 @@ class _MyHomePageState extends State<MyHomePage> {
         } else if (snapshot.hasData) {
           return ListView(
             padding: const EdgeInsets.all(16.0),
-            children: generateCards(snapshot.data!.name),
+            children: generateCards(snapshot.data!),
           );
         } else {
           return Center(child: Text('No exercise data found'));

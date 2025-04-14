@@ -1,4 +1,5 @@
 import 'package:fitlife/model/exercise.dart';
+import 'package:fitlife/screens/workout/exercise_detail.dart';
 import 'package:fitlife/screens/workout/workout_detail.dart';
 import 'package:flutter/material.dart';
 
@@ -13,20 +14,20 @@ Widget addWorkoutButton() {
 }
 
 class Workout extends StatelessWidget {
-  final String title;
+  final Exercise exercise;
   final IconData icon;
 
-  const Workout({required this.title, required this.icon, super.key});
+  const Workout({required this.exercise, required this.icon, super.key});
 
   void _displayDeleteWorkoutPopUp() {
 
   }
 
-  void _handleCardTap(BuildContext context, Workout wortkout) {
+  void _handleCardTap(BuildContext context, Exercise exercise) {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => WorkoutDetail(
-          workout: wortkout.title,
+        builder: (context) => ExerciseDetail(
+          exercise: exercise,
         ),
       ),
     );
@@ -37,13 +38,13 @@ class Workout extends StatelessWidget {
     return Card(
       color: Colors.lightBlue.shade50,
       child: InkWell(
-        onTap: () => _handleCardTap(context, this),
+        onTap: () => _handleCardTap(context, exercise),
         child: Column (
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             ListTile(
               leading: Icon(icon),
-              title: Text(title),
+              title: Text(exercise.name),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -74,11 +75,11 @@ class Workout extends StatelessWidget {
 
 
 
-List<Widget> generateCards(String exerciseName) {
+List<Widget> generateCards(Exercise exercise) {
   List<Widget> cards = [];
   cards.add(
     Workout(
-      title: exerciseName,
+      exercise: exercise,
       icon: Icons.sports_mma,
     ),
   );
