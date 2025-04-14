@@ -1,7 +1,8 @@
 import 'package:fitlife/model/exercise.dart';
 import 'package:fitlife/screens/workout/exercise_detail.dart';
-import 'package:fitlife/screens/workout/workout_detail.dart';
 import 'package:flutter/material.dart';
+
+import '../../model/user.dart';
 
 Widget addWorkoutButton() {
   return FloatingActionButton(
@@ -16,8 +17,9 @@ Widget addWorkoutButton() {
 class Workout extends StatelessWidget {
   final Exercise exercise;
   final IconData icon;
+  final User user;
 
-  const Workout({required this.exercise, required this.icon, super.key});
+  const Workout({required this.exercise, required this.icon, required this.user, super.key});
 
   void _displayDeleteWorkoutPopUp() {
 
@@ -28,6 +30,7 @@ class Workout extends StatelessWidget {
       MaterialPageRoute(
         builder: (context) => ExerciseDetail(
           exercise: exercise,
+          user: user
         ),
       ),
     );
@@ -75,12 +78,13 @@ class Workout extends StatelessWidget {
 
 
 
-List<Widget> generateCards(Exercise exercise) {
+List<Widget> generateCards(Exercise exercise, User user) {
   List<Widget> cards = [];
   cards.add(
     Workout(
       exercise: exercise,
       icon: Icons.sports_mma,
+      user: user
     ),
   );
   return cards;

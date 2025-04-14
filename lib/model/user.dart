@@ -1,4 +1,6 @@
 
+import 'package:fitlife/model/routine.dart';
+
 class User {
   late String firstName;
   late String lastName;
@@ -7,6 +9,7 @@ class User {
   final String password;
   late double weight;
   late double height;
+  late List<Routine> routines;
 
   User({
     required this.firstName,
@@ -16,7 +19,16 @@ class User {
     required this.password,
     this.weight = 0.0,
     this.height = 0.0,
-  });
+    routines,
+  }) : routines = routines ?? [];
+
+  void addRoutine(Routine routine) {
+    routines.add(routine);
+  }
+
+  void removeRoutine(Routine routine) {
+    routines.remove(routine);
+  }
 }
 
 class UserManager {

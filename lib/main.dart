@@ -101,31 +101,56 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: _buildAppBar(),
       bottomNavigationBar: _buildBottomNavigationBar(),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: TextField(
-              controller: _controller,
-              decoration: InputDecoration(
-                labelText: 'Enter Exercise ID',
-                suffixIcon: IconButton(
-                  icon: Icon(Icons.search),
-                  onPressed: () {
-                    _fetchExercise(_controller.text);
-                  },
-                ),
-              ),
-            ),
-          ),
-          Expanded(child: _buildBody()),
-        ],
-      ),
+      body: _selectedIndex == 0 ? _buildHomeBody() : _buildWorkoutBody(),
       floatingActionButton: addWorkoutButton(),
     );
   }
 
-  Widget _buildBody() {
+  Widget _buildHomeBody() {
+    if (widget.user.routines.isEmpty) {
+      return Center(child: Text('No routines found'));
+    }
+
+    return ListView.builder(
+      itemCount: widget.user.routines.length,
+      itemBuilder: (context, index) {
+        final routine = widget.user.routines[index];
+        return Card(
+          margin: const EdgeInsets.all(8.0),
+          child: ListTile(
+            title: Text(routine.name),
+            subtitle: Text('Exercises: ${routine.exercises.length}'),
+          ),
+        );
+      },
+    );
+  }
+
+
+  Widget _buildWorkoutBody() {
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: TextField(
+            controller: _controller,
+            decoration: InputDecoration(
+              labelText: 'Enter Exercise ID',
+              suffixIcon: IconButton(
+                icon: Icon(Icons.search),
+                onPressed: () {
+                  _fetchExercise(_controller.text);
+                },
+              ),
+            ),
+          ),
+        ),
+        Expanded(child: _exercise == null ? Center(child: Text('Search for exercises')) : _buildExerciseBody()),
+      ],
+    );
+  }
+
+  Widget _buildExerciseBody() {
     return FutureBuilder<Exercise>(
       future: _exercise,
       builder: (context, snapshot) {
@@ -136,7 +161,7 @@ class _MyHomePageState extends State<MyHomePage> {
         } else if (snapshot.hasData) {
           return ListView(
             padding: const EdgeInsets.all(16.0),
-            children: generateCards(snapshot.data!),
+            children: generateCards(snapshot.data!, widget.user),
           );
         } else {
           return Center(child: Text('No exercise data found'));

@@ -1,12 +1,15 @@
+import 'package:fitlife/model/routine.dart';
+import 'package:fitlife/model/user.dart';
 import 'package:fitlife/utils/fitlife_app_bar.dart';
 import 'package:fitlife/utils/string_constants.dart';
 import 'package:flutter/material.dart';
 import '../../model/exercise.dart';
 
 class ExerciseDetail extends StatefulWidget {
-  const ExerciseDetail({super.key, required this.exercise});
+  const ExerciseDetail({super.key, required this.exercise, required this.user});
 
   final Exercise exercise;
+  final User user;
 
   @override
   State<ExerciseDetail> createState() => _ExerciseDetailState();
@@ -125,6 +128,10 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
 
   void _addToRoutine() {
     // Nothing to do here for now
+    Routine r = Routine(id: "1", name: "name", description: "description", exercises: []);
+    r.addExercise(widget.exercise);
+    widget.user.routines.add(r);
+
     print('Añadido a la rutina');
   }
 
