@@ -1,3 +1,4 @@
+import 'package:fitlife/model/exercise.dart';
 import 'package:fitlife/screens/workout/workout_detail.dart';
 import 'package:flutter/material.dart';
 
@@ -11,20 +12,22 @@ Widget addWorkoutButton() {
   );
 }
 
-class CardExample extends StatelessWidget {
+class Workout extends StatelessWidget {
   final String title;
   final IconData icon;
 
-  const CardExample({required this.title, required this.icon, super.key});
+  const Workout({required this.title, required this.icon, super.key});
 
   void _displayDeleteWorkoutPopUp() {
 
   }
 
-  void _handleCardTap(BuildContext context) {
+  void _handleCardTap(BuildContext context, Workout wortkout) {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => WorkoutDetail(),
+        builder: (context) => WorkoutDetail(
+          workout: wortkout.title,
+        ),
       ),
     );
   }
@@ -34,7 +37,7 @@ class CardExample extends StatelessWidget {
     return Card(
       color: Colors.lightBlue.shade50,
       child: InkWell(
-        onTap: () => _handleCardTap(context),
+        onTap: () => _handleCardTap(context, this),
         child: Column (
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
@@ -48,16 +51,10 @@ class CardExample extends StatelessWidget {
                 TextButton(
                   child: Row(
                     children: const [
-                      Text(
-                        'Delete',
-                        style: TextStyle(
-                          color: Colors.red,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
                       Icon(
                         Icons.delete,
                         color: Colors.red,
+                        size: 25,
                       ),
                     ],
                   ),
@@ -75,13 +72,15 @@ class CardExample extends StatelessWidget {
   }
 }
 
-List<Widget> generateCards(int count) {
+
+
+List<Widget> generateCards(String exerciseName) {
   List<Widget> cards = [];
-  for (int i = 0; i < count; i++) {
-    cards.add(CardExample(
-      title: 'Workout $i',
+  cards.add(
+    Workout(
+      title: exerciseName,
       icon: Icons.sports_mma,
-    ));
-  }
+    ),
+  );
   return cards;
 }

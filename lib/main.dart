@@ -3,8 +3,8 @@ import 'package:fitlife/screens/splash_screen.dart';
 import 'package:fitlife/screens/workout/workout_widgets.dart';
 import 'package:fitlife/utils/string_constants.dart';
 import 'package:flutter/material.dart';
-
 import 'model/user.dart';
+import 'model/exercise.dart';
 
 void main() {
   runApp(MyApp());
@@ -71,6 +71,14 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
+  Future<Exercise>? _exercise;
+  final TextEditingController _controller = TextEditingController();
+
+  void _fetchExercise(String id) {
+    setState(() {
+      _exercise = Exercise.fetchExerciseById(id);
+    });
+  }
 
   void _onItemTapped(int index) {
     if (index != _selectedIndex) {
@@ -79,14 +87,6 @@ class _MyHomePageState extends State<MyHomePage> {
       });
     }
   }
-
-  final List<Widget> _widgetOptions = <Widget>[
-    ListView(
-      padding: const EdgeInsets.all(16.0),
-      children: generateCards(10), // Genera 10 Cards
-    ),
-    Center(child: null)
-  ];
 
   void _onSettingsPressed() {
     Navigator.of(context).push(
@@ -101,8 +101,47 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: _buildAppBar(),
       bottomNavigationBar: _buildBottomNavigationBar(),
-      body: _widgetOptions[_selectedIndex],
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: TextField(
+              controller: _controller,
+              decoration: InputDecoration(
+                labelText: 'Enter Exercise ID',
+                suffixIcon: IconButton(
+                  icon: Icon(Icons.search),
+                  onPressed: () {
+                    _fetchExercise(_controller.text);
+                  },
+                ),
+              ),
+            ),
+          ),
+          Expanded(child: _buildBody()),
+        ],
+      ),
       floatingActionButton: addWorkoutButton(),
+    );
+  }
+
+  Widget _buildBody() {
+    return FutureBuilder<Exercise>(
+      future: _exercise,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError) {
+          return Center(child: Text('Error: ${snapshot.error}'));
+        } else if (snapshot.hasData) {
+          return ListView(
+            padding: const EdgeInsets.all(16.0),
+            children: generateCards(snapshot.data!.name),
+          );
+        } else {
+          return Center(child: Text('No exercise data found'));
+        }
+      },
     );
   }
 

@@ -6,7 +6,9 @@ import '../../utils/fitlife_input_textfield.dart';
 import '../../utils/string_constants.dart';
 
 class WorkoutDetail extends StatelessWidget {
-  const WorkoutDetail({super.key});
+  const WorkoutDetail({super.key, required this.workout});
+
+  final String workout;
 
   void _saveChanges() {
     print('Cambios guardados');
@@ -53,14 +55,14 @@ class WorkoutDetail extends StatelessWidget {
                 onPressed: () {
                   _saveChanges();
                 },
-                child: Text('Guardar Cambios'),
+                child: Text('Save changes'),
               ),
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
                   _deleteWorkout();
                 },
-                child: Text('Eliminar Rutina'),
+                child: Text('Delete'),
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
               ),
             ],
