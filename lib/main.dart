@@ -1,8 +1,11 @@
 import 'package:fitlife/screens/settings/settings_screen.dart';
 import 'package:fitlife/screens/splash_screen.dart';
-import 'package:fitlife/screens/workout/workout_widgets.dart';
+import 'package:fitlife/screens/workout/exercise/exercise_card.dart';
+import 'package:fitlife/screens/workout/routine/routine_card.dart';
+import 'package:fitlife/screens/workout/routine/routine_detail.dart';
 import 'package:fitlife/utils/string_constants.dart';
 import 'package:flutter/material.dart';
+import 'model/routine.dart';
 import 'model/user.dart';
 import 'model/exercise.dart';
 
@@ -71,12 +74,12 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
-  Future<Exercise>? _exercise;
-  final TextEditingController _controller = TextEditingController();
+  Future<List<Exercise>>? _exercises;
+  String? _selectedMuscle;
 
-  void _fetchExercise(String id) {
+  void _fetchExercises(String muscle) {
     setState(() {
-      _exercise = Exercise.fetchExerciseById(id);
+      _exercises = Exercise.fetchExercisesByMuscle(muscle);
     });
   }
 
@@ -102,7 +105,6 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: _buildAppBar(),
       bottomNavigationBar: _buildBottomNavigationBar(),
       body: _selectedIndex == 0 ? _buildHomeBody() : _buildWorkoutBody(),
-      floatingActionButton: addWorkoutButton(),
     );
   }
 
@@ -120,48 +122,61 @@ class _MyHomePageState extends State<MyHomePage> {
           child: ListTile(
             title: Text(routine.name),
             subtitle: Text('Exercises: ${routine.exercises.length}'),
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => RoutineDetail(
+                    user: widget.user,
+                    routine: routine,
+                  ),
+                ),
+              );
+            },
           ),
         );
       },
     );
   }
 
-
   Widget _buildWorkoutBody() {
     return Column(
       children: [
         Padding(
           padding: const EdgeInsets.all(16.0),
-          child: TextField(
-            controller: _controller,
-            decoration: InputDecoration(
-              labelText: 'Enter Exercise ID',
-              suffixIcon: IconButton(
-                icon: Icon(Icons.search),
-                onPressed: () {
-                  _fetchExercise(_controller.text);
-                },
-              ),
-            ),
+          child: DropdownButton<String>(
+            value: _selectedMuscle,
+            hint: Text('Select Muscle'),
+            items: Exercise.musclesList.map((String muscle) {
+              return DropdownMenuItem<String>(
+                value: muscle,
+                child: Text(muscle),
+              );
+            }).toList(),
+            onChanged: (String? newMuscle) {
+              setState(() {
+                _selectedMuscle = newMuscle;
+                _fetchExercises(_selectedMuscle!);
+              });
+            },
           ),
         ),
-        Expanded(child: _exercise == null ? Center(child: Text('Search for exercises')) : _buildExerciseBody()),
+        Expanded(child: _exercises == null ? Center(child: Text('Search for exercises')) : _buildExerciseBody()),
       ],
     );
   }
 
   Widget _buildExerciseBody() {
-    return FutureBuilder<Exercise>(
-      future: _exercise,
+    return FutureBuilder<List<Exercise>>(
+      future: _exercises,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(child: CircularProgressIndicator());
         } else if (snapshot.hasError) {
-          return Center(child: Text('Error: ${snapshot.error}'));
+          return Center(child: Text('Error: ${snapshot.error.toString()}'));
         } else if (snapshot.hasData) {
           return ListView(
             padding: const EdgeInsets.all(16.0),
-            children: generateCards(snapshot.data!, widget.user),
+            children: snapshot.data!.map((exercise) => ExerciseCard(exercise: exercise, icon: Icons.sports_mma, user: widget.user)).toList(),
           );
         } else {
           return Center(child: Text('No exercise data found'));
@@ -204,5 +219,17 @@ class _MyHomePageState extends State<MyHomePage> {
       selectedItemColor: Theme.of(context).colorScheme.primary,
       unselectedItemColor: Theme.of(context).colorScheme.secondary,
     );
+  }
+
+  List<Widget> generateExerciseCards(Exercise exercise, User user) {
+    List<Widget> cards = [];
+    cards.add(
+      ExerciseCard(
+          exercise: exercise,
+          icon: Icons.sports_mma,
+          user: user,
+      ),
+    );
+    return cards;
   }
 }

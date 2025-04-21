@@ -3,7 +3,7 @@ import 'package:fitlife/model/user.dart';
 import 'package:fitlife/utils/fitlife_app_bar.dart';
 import 'package:fitlife/utils/string_constants.dart';
 import 'package:flutter/material.dart';
-import '../../model/exercise.dart';
+import '../../../model/exercise.dart';
 
 class ExerciseDetail extends StatefulWidget {
   const ExerciseDetail({super.key, required this.exercise, required this.user});
@@ -30,9 +30,13 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  widget.exercise.name,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+                Flexible(
+                  child: Text(
+                    widget.exercise.name,
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+                    maxLines: 6,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
                 ElevatedButton(
                   onPressed: _addToRoutine,

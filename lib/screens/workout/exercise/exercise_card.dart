@@ -1,40 +1,21 @@
-import 'package:fitlife/model/exercise.dart';
-import 'package:fitlife/screens/workout/exercise_detail.dart';
 import 'package:flutter/material.dart';
+import 'package:fitlife/model/exercise.dart';
 
-import '../../model/user.dart';
+import '../../../model/user.dart';
+import 'exercise_detail.dart';
 
-Widget addWorkoutButton() {
-  return FloatingActionButton(
-    onPressed: () {
-
-    },
-    backgroundColor: Colors.red,
-    child: Icon(Icons.add),
-  );
-}
-
-class Workout extends StatelessWidget {
+class ExerciseCard extends StatelessWidget {
   final Exercise exercise;
   final IconData icon;
   final User user;
 
-  const Workout({required this.exercise, required this.icon, required this.user, super.key});
 
-  void _displayDeleteWorkoutPopUp() {
-
-  }
-
-  void _handleCardTap(BuildContext context, Exercise exercise) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => ExerciseDetail(
-          exercise: exercise,
-          user: user
-        ),
-      ),
-    );
-  }
+  const ExerciseCard({
+    super.key,
+    required this.exercise,
+    required this.icon,
+    required this.user,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -74,18 +55,19 @@ class Workout extends StatelessWidget {
       ),
     );
   }
-}
 
+  void _handleCardTap(BuildContext context, Exercise exercise) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => ExerciseDetail(
+            exercise: exercise,
+            user: user
+        ),
+      ),
+    );
+  }
 
-
-List<Widget> generateCards(Exercise exercise, User user) {
-  List<Widget> cards = [];
-  cards.add(
-    Workout(
-      exercise: exercise,
-      icon: Icons.sports_mma,
-      user: user
-    ),
-  );
-  return cards;
+  void _displayDeleteWorkoutPopUp() {
+    //TODO
+  }
 }
