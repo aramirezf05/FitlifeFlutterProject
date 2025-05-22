@@ -92,17 +92,32 @@ class _RoutineDetailState extends State<RoutineDetail> {
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
                   onPressed: isRoutineRunning ? _stopRoutine : null,
-                  child: Text('Stop timer'),
+                  child: Text('Stop timer', style: TextStyle(color: Colors.white)),
                 ),
               ],
             ),
             SizedBox(height: 20),
-            Expanded(child: _buildExerciseList()),
+            Expanded(
+              child: _buildExerciseList(),
+            ),
+            SizedBox(height: 20),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                onPressed: () => _confirmDeleteRoutine(widget.routine),
+                child: Text('Delete routine', style: TextStyle(color: Colors.white)),
+              ),
+
+            ),
+            SizedBox(height: 20),
           ],
         ),
       ),
     );
   }
+
+
 
   Widget _buildExerciseList() {
     return ListView.builder(
@@ -152,7 +167,7 @@ class _RoutineDetailState extends State<RoutineDetail> {
           ),
         );
       },
-      
+
     );
   }
 
@@ -204,9 +219,30 @@ class _RoutineDetailState extends State<RoutineDetail> {
     );
   }
 
-  void _deleteWorkout() {
-    print('Rutina eliminada');
+  void _confirmDeleteRoutine(Routine routine) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Delete routine'),
+        content: Text('Are you sure you want to delete this routine?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () {
+              setState(() {
+                widget.user.routines.remove(routine);
+              });
+
+              Navigator.pop(context, true);
+              Navigator.pop(context, true);
+            },
+            child: Text('Confirm', style: TextStyle(color: Colors.red)),
+          ),
+        ],
+      ),
+    );
   }
-
-
 }
