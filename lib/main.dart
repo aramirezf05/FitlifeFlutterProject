@@ -113,16 +113,16 @@ class _MyHomePageState extends State<MyHomePage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Nueva Rutina"),
+          title: Text("New routine"),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               TextField(
-                decoration: InputDecoration(labelText: "Nombre"),
+                decoration: InputDecoration(labelText: "Name"),
                 onChanged: (value) => name = value,
               ),
               TextField(
-                decoration: InputDecoration(labelText: "Descripción"),
+                decoration: InputDecoration(labelText: "Description"),
                 onChanged: (value) => description = value,
               ),
             ],
@@ -130,7 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text("Cancelar"),
+              child: Text("Cancel"),
             ),
             TextButton(
               onPressed: () {
@@ -138,7 +138,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   Navigator.pop(context);
                 }
               },
-              child: Text("Crear"),
+              child: Text("Create"),
             ),
           ],
         );
@@ -159,7 +159,7 @@ class _MyHomePageState extends State<MyHomePage> {
       });
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Rutina '$name' creada")),
+        SnackBar(content: Text("Routine '$name' created")),
       );
     }
   }
