@@ -100,12 +100,84 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  void _onCreateRoutinePressed() async {
+    final selected = selectedExercises.entries
+        .where((entry) => entry.value)
+        .map((entry) => entry.key)
+        .toList();
+
+    String name = '';
+    String description = '';
+
+    await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Nueva Rutina"),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                decoration: InputDecoration(labelText: "Nombre"),
+                onChanged: (value) => name = value,
+              ),
+              TextField(
+                decoration: InputDecoration(labelText: "Descripción"),
+                onChanged: (value) => description = value,
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text("Cancelar"),
+            ),
+            TextButton(
+              onPressed: () {
+                if (name.isNotEmpty) {
+                  Navigator.pop(context);
+                }
+              },
+              child: Text("Crear"),
+            ),
+          ],
+        );
+      },
+    );
+
+    if (name.isNotEmpty) {
+      final newRoutine = Routine(
+        id: DateTime.now().millisecondsSinceEpoch.toString(),
+        name: name,
+        description: description,
+        exercises: selected,
+      );
+
+      setState(() {
+        widget.user.routines.add(newRoutine);
+        selectedExercises.updateAll((key, value) => false);
+      });
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Rutina '$name' creada")),
+      );
+    }
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _buildAppBar(),
       bottomNavigationBar: _buildBottomNavigationBar(),
       body: _selectedIndex == 0 ? _buildHomeBody() : _buildWorkoutBody(),
+      floatingActionButton: _selectedIndex == 1 && selectedExercises.values.any((selected) => selected)
+          ? FloatingActionButton.extended(
+        onPressed: _onCreateRoutinePressed,
+        icon: Icon(Icons.add),
+        label: Text("Create Routine"),
+      )
+          : null,
     );
   }
 
@@ -177,11 +249,12 @@ class _MyHomePageState extends State<MyHomePage> {
         } else if (snapshot.hasData) {
           var exercises = snapshot.data!;
 
-          if (selectedExercises.isEmpty) {
-            for (var exercise in exercises) {
+          for (var exercise in exercises) {
+            if (!selectedExercises.containsKey(exercise)) {
               selectedExercises[exercise] = false;
             }
           }
+
 
           return ListView(
             padding: const EdgeInsets.all(16.0),
