@@ -76,6 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
   Future<List<Exercise>>? _exercises;
   String? _selectedMuscle;
+  Map<Exercise, bool> selectedExercises = {};
 
   void _fetchExercises(String muscle) {
     setState(() {
@@ -174,9 +175,29 @@ class _MyHomePageState extends State<MyHomePage> {
         } else if (snapshot.hasError) {
           return Center(child: Text('Error: ${snapshot.error.toString()}'));
         } else if (snapshot.hasData) {
+          var exercises = snapshot.data!;
+
+          if (selectedExercises.isEmpty) {
+            for (var exercise in exercises) {
+              selectedExercises[exercise] = false;
+            }
+          }
+
           return ListView(
             padding: const EdgeInsets.all(16.0),
-            children: snapshot.data!.map((exercise) => ExerciseCard(exercise: exercise, icon: Icons.sports_mma, user: widget.user)).toList(),
+            children: exercises.map((exercise) {
+              return ExerciseCard(
+                exercise: exercise,
+                icon: Icons.sports_mma,
+                user: widget.user,
+                isSelected: selectedExercises[exercise]!,
+                onSelected: (bool? value) {
+                  setState(() {
+                    selectedExercises[exercise] = value!;
+                  });
+                },
+              );
+            }).toList(),
           );
         } else {
           return Center(child: Text('No exercise data found'));
@@ -219,17 +240,5 @@ class _MyHomePageState extends State<MyHomePage> {
       selectedItemColor: Theme.of(context).colorScheme.primary,
       unselectedItemColor: Theme.of(context).colorScheme.secondary,
     );
-  }
-
-  List<Widget> generateExerciseCards(Exercise exercise, User user) {
-    List<Widget> cards = [];
-    cards.add(
-      ExerciseCard(
-          exercise: exercise,
-          icon: Icons.sports_mma,
-          user: user,
-      ),
-    );
-    return cards;
   }
 }

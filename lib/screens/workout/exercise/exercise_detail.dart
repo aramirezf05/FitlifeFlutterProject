@@ -4,6 +4,7 @@ import 'package:fitlife/utils/fitlife_app_bar.dart';
 import 'package:fitlife/utils/string_constants.dart';
 import 'package:flutter/material.dart';
 import '../../../model/exercise.dart';
+import '../routine/create_routine_form_screen.dart';
 
 class ExerciseDetail extends StatefulWidget {
   const ExerciseDetail({super.key, required this.exercise, required this.user});
@@ -39,8 +40,15 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: _addToRoutine,
-                  child: Text('Add to Routine'),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => CreateRoutineFormScreen(user: widget.user, selectedExercises: [widget.exercise]),
+                      ),
+                    );
+                  },
+                  child: Text('Create Routine'),
                 ),
               ],
             ),

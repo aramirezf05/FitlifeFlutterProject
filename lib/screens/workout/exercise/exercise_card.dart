@@ -8,13 +8,16 @@ class ExerciseCard extends StatelessWidget {
   final Exercise exercise;
   final IconData icon;
   final User user;
-
+  final ValueChanged<bool?> onSelected;
+  final bool isSelected;
 
   const ExerciseCard({
     super.key,
     required this.exercise,
     required this.icon,
     required this.user,
+    required this.onSelected,
+    required this.isSelected,
   });
 
   @override
@@ -23,34 +26,20 @@ class ExerciseCard extends StatelessWidget {
       color: Colors.lightBlue.shade50,
       child: InkWell(
         onTap: () => _handleCardTap(context, exercise),
-        child: Column (
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            ListTile(
-              leading: Icon(icon),
-              title: Text(exercise.name),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                TextButton(
-                  child: Row(
-                    children: const [
-                      Icon(
-                        Icons.delete,
-                        color: Colors.red,
-                        size: 25,
-                      ),
-                    ],
-                  ),
-                  onPressed: () {
-                    _displayDeleteWorkoutPopUp();
-                  },
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              ListTile(
+                leading: Checkbox(
+                    value: isSelected,
+                    onChanged: onSelected
                 ),
-                const SizedBox(width: 8),
-              ],
-            ),
-          ],
+                title: Text(exercise.name),
+              ),
+              const SizedBox(height: 10),
+            ],
+          ),
         ),
       ),
     );
@@ -60,14 +49,10 @@ class ExerciseCard extends StatelessWidget {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => ExerciseDetail(
-            exercise: exercise,
-            user: user
+          exercise: exercise,
+          user: user,
         ),
       ),
     );
-  }
-
-  void _displayDeleteWorkoutPopUp() {
-    //TODO
   }
 }

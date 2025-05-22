@@ -115,7 +115,7 @@ class _AccountScreenState extends State<AccountScreen> {
             ElevatedButton(
               onPressed: _updateUser,
               style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
-              child: Text("Guardar Cambios", style: TextStyle(color: Colors.white)), // Botón para guardar cambios
+              child: Text("Save changes", style: TextStyle(color: Colors.white)),
             ),
           ],
         ),
