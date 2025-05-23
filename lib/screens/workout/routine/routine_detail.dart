@@ -70,6 +70,30 @@ class _RoutineDetailState extends State<RoutineDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: FitLifeAppBar(title: widget.routine.name),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ExerciseDetail(
+                exercise: widget.routine.exercises.first,
+                user: widget.user,
+              ),
+            ),
+          ).then((_) => setState(() {}));
+        },
+        icon: Icon(Icons.add),
+        label: Text('Add exercises'),
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.only(bottom: 16.0, left: 16.0, right: 16.0),
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+          onPressed: () => _confirmDeleteRoutine(widget.routine),
+          child: Text('Delete routine', style: TextStyle(color: Colors.white)),
+        ),
+      ),
+
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -100,17 +124,6 @@ class _RoutineDetailState extends State<RoutineDetail> {
             Expanded(
               child: _buildExerciseList(),
             ),
-            SizedBox(height: 20),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                onPressed: () => _confirmDeleteRoutine(widget.routine),
-                child: Text('Delete routine', style: TextStyle(color: Colors.white)),
-              ),
-
-            ),
-            SizedBox(height: 20),
           ],
         ),
       ),
@@ -158,16 +171,38 @@ class _RoutineDetailState extends State<RoutineDetail> {
                   }),
                 ),
                 SizedBox(height: 8),
-                ElevatedButton(
-                  onPressed: () => _addSerieDialog(exercise.name),
-                  child: Text("Add set"),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    ElevatedButton.icon(
+                      onPressed: () => _addSerieDialog(exercise.name),
+                      icon: Icon(Icons.add),
+                      label: Text("Add set"),
+                    ),
+                    ElevatedButton.icon(
+                      onPressed: () => _removeExerciseFromRoutine(index),
+                      icon: Icon(Icons.delete, color: Colors.white),
+                      label: Text("Remove", style: TextStyle(color: Colors.white)),
+                      style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                    ),
+                  ],
                 ),
               ],
             ),
           ),
         );
       },
+    );
+  }
 
+  void _removeExerciseFromRoutine(int index) {
+    setState(() {
+      final removedExercise = widget.routine.exercises.removeAt(index);
+      exerciseSets.remove(removedExercise.name);
+    });
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Exercise removed from routine')),
     );
   }
 

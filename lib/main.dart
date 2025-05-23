@@ -196,16 +196,13 @@ class _MyHomePageState extends State<MyHomePage> {
             title: Text(routine.name),
             subtitle: Text('Exercises: ${routine.exercises.length}'),
             onTap: () async {
-              final wasDeleted = await Navigator.push( //We secure that we delete correctly the routine
+              await Navigator.push( //We secure that we delete correctly the routine
                 context,
                 MaterialPageRoute(
                   builder: (context) => RoutineDetail(routine: routine, user: widget.user),
                 ),
               );
-
-              if (wasDeleted == true) {
-                setState(() {});
-              }
+              setState(() {});
             },
           ),
         );
