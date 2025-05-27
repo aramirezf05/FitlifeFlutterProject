@@ -191,7 +191,7 @@ class _MyHomePageState extends State<MyHomePage> {
       itemBuilder: (context, index) {
         final routine = widget.user.routines[index];
         return Card(
-          margin: const EdgeInsets.all(8.0),
+          margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
           child: ListTile(
             title: Text(routine.name),
             subtitle: Text('Exercises: ${routine.exercises.length}'),
