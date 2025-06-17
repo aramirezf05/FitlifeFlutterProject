@@ -40,13 +40,9 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
               ],
             ),
             SizedBox(height: 16),
-            _buildImagesCard('Images', widget.exercise.id, widget.exercise.images),
+            _buildGifCard('Exercise Preview', widget.exercise.gifUrl),
             _buildDetailCard('Category', widget.exercise.category),
             _buildDetailCard('Equipment', widget.exercise.equipment),
-            _buildDetailCard('Force', widget.exercise.force),
-            _buildDetailCard('Mechanic', widget.exercise.mechanic),
-            _buildDetailCard('Level', widget.exercise.level),
-            _buildMusclesCard('Primary Muscles', widget.exercise.primaryMuscles),
             _buildMusclesCard('Secondary Muscles', widget.exercise.secondaryMuscles),
             _buildInstructionsCard('Instructions', widget.exercise.instructions),
           ],
@@ -54,6 +50,31 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
       ),
     );
   }
+
+  Widget _buildGifCard(String title, String gifUrl) {
+    return Card(
+      margin: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
+          ),
+          Center(
+            child: Image.network(
+              gifUrl,
+              height: 200,
+              errorBuilder: (context, error, stackTrace) {
+                return Text('Could not load exercise preview');
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
 
   Widget _buildDetailCard(String title, String detail) {
     return Card(

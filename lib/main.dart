@@ -78,9 +78,9 @@ class _MyHomePageState extends State<MyHomePage> {
   String? _selectedMuscle;
   Map<Exercise, bool> selectedExercises = {};
 
-  void _fetchExercises(String muscle) {
+  void _fetchExercises(String target) {
     setState(() {
-      _exercises = Exercise.fetchExercisesByMuscle(muscle);
+      _exercises = Exercise.fetchExercisesByTarget(target);
     });
   }
 
