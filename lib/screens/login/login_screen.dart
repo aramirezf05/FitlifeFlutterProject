@@ -49,18 +49,18 @@ class _LoginScreenState extends State<LoginScreen> {
             ElevatedButton(
               onPressed: _attemptLogin,
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blueAccent, // Color de fondo del botón
-                padding: EdgeInsets.symmetric(horizontal: 32, vertical: 12), // Espacio interno
+                backgroundColor: Colors.blueAccent,
+                padding: EdgeInsets.symmetric(horizontal: 32, vertical: 12),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10), // Bordes redondeados
+                  borderRadius: BorderRadius.circular(10),
                 ),
-                shadowColor: Colors.blueGrey, // Color de la sombra
+                shadowColor: Colors.blueGrey,
                 elevation: 5, // Núm. de elevación de la sombra
               ),
               child: Text(
                 'Login',
                 style: TextStyle(
-                  color: Colors.white, // Color del texto
+                  color: Colors.white,
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                 ),
@@ -76,16 +76,16 @@ class _LoginScreenState extends State<LoginScreen> {
               },
               style: TextButton.styleFrom(
                 padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                backgroundColor: Colors.transparent, // Fondo transparente para el TextButton
+                backgroundColor: Colors.transparent,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
-                  side: BorderSide(color: Colors.blueAccent), // Borde del botón
+                  side: BorderSide(color: Colors.blueAccent),
                 ),
               ),
               child: Text(
                 'Register',
                 style: TextStyle(
-                  color: Colors.blueAccent, // Color del texto
+                  color: Colors.blueAccent,
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                 ),
