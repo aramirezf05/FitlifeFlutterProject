@@ -1,7 +1,6 @@
 import 'package:fitlife/screens/settings/settings_screen.dart';
 import 'package:fitlife/screens/splash_screen.dart';
 import 'package:fitlife/screens/workout/exercise/exercise_card.dart';
-import 'package:fitlife/screens/workout/routine/routine_card.dart';
 import 'package:fitlife/screens/workout/routine/routine_detail.dart';
 import 'package:fitlife/utils/string_constants.dart';
 import 'package:flutter/material.dart';
@@ -254,13 +253,11 @@ class _MyHomePageState extends State<MyHomePage> {
             }
           }
 
-
           return ListView(
             padding: const EdgeInsets.all(16.0),
             children: exercises.map((exercise) {
               return ExerciseCard(
                 exercise: exercise,
-                icon: Icons.sports_mma,
                 user: widget.user,
                 isSelected: selectedExercises[exercise]!,
                 onSelected: (bool? value) {

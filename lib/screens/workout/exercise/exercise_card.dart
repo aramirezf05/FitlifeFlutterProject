@@ -6,7 +6,6 @@ import 'exercise_detail.dart';
 
 class ExerciseCard extends StatelessWidget {
   final Exercise exercise;
-  final IconData icon;
   final User user;
   final ValueChanged<bool?> onSelected;
   final bool isSelected;
@@ -14,7 +13,6 @@ class ExerciseCard extends StatelessWidget {
   const ExerciseCard({
     super.key,
     required this.exercise,
-    required this.icon,
     required this.user,
     required this.onSelected,
     required this.isSelected,
