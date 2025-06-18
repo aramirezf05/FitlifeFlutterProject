@@ -35,14 +35,14 @@ class _MyAppState extends State<MyApp> {
           seedColor: Colors.blue,
           primary: Colors.lightBlue,
           secondary: Colors.black,
-          tertiary: Colors.blue,
+          tertiary: Colors.lightBlue.shade50,
           brightness: Brightness.light
         ),
       ),
       darkTheme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.blue,
-          primary: Colors.deepPurple,
+          primary: Colors.blue,
           secondary: Colors.black,
           tertiary: Colors.blue,
           brightness: Brightness.dark,
@@ -190,6 +190,7 @@ class _MyHomePageState extends State<MyHomePage> {
       itemBuilder: (context, index) {
         final routine = widget.user.routines[index];
         return Card(
+          color: Theme.of(context).colorScheme.tertiary,
           margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
           child: ListTile(
             title: Text(routine.name),

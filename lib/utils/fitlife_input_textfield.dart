@@ -12,13 +12,12 @@ Widget fitLifeTextField({
   IconData? prefixIcon,
 }) {
   var primaryColor = Theme.of(context).colorScheme.primary;
-  var tertiaryColor = Theme.of(context).colorScheme.tertiary;
 
   return TextField(
     controller: controller,
     decoration: InputDecoration(
       labelText: labelText,
-      labelStyle: TextStyle(color: tertiaryColor, fontWeight: FontWeight.bold),
+      labelStyle: TextStyle(color: primaryColor, fontWeight: FontWeight.bold),
       enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(color: primaryColor, width: sizeDouble_2),
         borderRadius: BorderRadius.circular(sizeDouble_12),
@@ -39,13 +38,12 @@ Widget fitLifePasswordTextField({
   IconData? prefixIcon,
 }) {
   var primaryColor = Theme.of(context).colorScheme.primary;
-  var tertiaryColor = Theme.of(context).colorScheme.tertiary;
 
   return TextField(
     controller: controller,
     decoration: InputDecoration(
       labelText: labelText,
-      labelStyle: TextStyle(color: tertiaryColor, fontWeight: FontWeight.bold),
+      labelStyle: TextStyle(color: primaryColor, fontWeight: FontWeight.bold),
       enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(color: primaryColor, width: sizeDouble_2),
         borderRadius: BorderRadius.circular(sizeDouble_12),
@@ -67,14 +65,13 @@ Widget fitLifeEmailTextField({
   IconData? prefixIcon,
 }) {
   var primaryColor = Theme.of(context).colorScheme.primary;
-  var tertiaryColor = Theme.of(context).colorScheme.tertiary;
 
   return TextField(
     controller: controller,
     keyboardType: TextInputType.emailAddress,
     decoration: InputDecoration(
       labelText: labelText,
-      labelStyle: TextStyle(color: tertiaryColor, fontWeight: FontWeight.bold),
+      labelStyle: TextStyle(color: primaryColor, fontWeight: FontWeight.bold),
       enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(color: primaryColor, width: sizeDouble_2),
         borderRadius: BorderRadius.circular(sizeDouble_12),
@@ -95,14 +92,13 @@ Widget fitLifeNumberTextField({
   IconData? prefixIcon,
 }) {
   var primaryColor = Theme.of(context).colorScheme.primary;
-  var tertiaryColor = Theme.of(context).colorScheme.tertiary;
 
   return TextField(
     controller: controller,
     keyboardType: TextInputType.number,
     decoration: InputDecoration(
       labelText: labelText,
-      labelStyle: TextStyle(color: tertiaryColor, fontWeight: FontWeight.bold),
+      labelStyle: TextStyle(color: primaryColor, fontWeight: FontWeight.bold),
       enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(color: primaryColor, width: sizeDouble_2),
         borderRadius: BorderRadius.circular(sizeDouble_12),

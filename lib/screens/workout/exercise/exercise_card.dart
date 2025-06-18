@@ -21,7 +21,7 @@ class ExerciseCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.lightBlue.shade50,
+      color: Theme.of(context).colorScheme.tertiary,
       child: InkWell(
         onTap: () => _handleCardTap(context, exercise),
         child: Center(
