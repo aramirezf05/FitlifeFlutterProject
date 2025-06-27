@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
+import '../../../model/exercise.dart';
 import '../../../model/routine.dart';
 import '../../../model/user.dart';
 import '../../../utils/fitlife_app_bar.dart';
 import '../../../utils/string_constants.dart';
+import '../exercise/add_exercises.dart';
 import '../exercise/exercise_detail.dart';
 
 class RoutineDetail extends StatefulWidget {
@@ -76,12 +78,36 @@ class _RoutineDetailState extends State<RoutineDetail> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => ExerciseDetail(
-                exercise: widget.routine.exercises.first,
+              builder: (context) => AddExercisesScreen(
+                routine: widget.routine,
                 user: widget.user,
               ),
             ),
-          ).then((_) => setState(() {}));
+          ).then((value) {
+            if (value != null && value is List<Exercise>) {
+              setState(() {
+                for (var newEx in value) {
+                  final exists = widget.routine.exercises.any(
+                          (existing) => existing.name.toLowerCase() == newEx.name.toLowerCase()
+                  );
+                  if (!exists) {
+                    widget.routine.exercises.add(newEx);
+                  }
+                  else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Exercise ${capitalizeFirstLetter(newEx.name)} already exists in the routine')),
+                    );
+                  }
+                }
+                for (var exercise in widget.routine.exercises) {
+                  final key = capitalizeFirstLetter(exercise.name);
+                  if (!exerciseSets.containsKey(key)) {
+                    exerciseSets[key] = [];
+                  }
+                }
+              });
+            }
+          });
         },
         icon: Icon(Icons.add),
         label: Text('Add exercises'),

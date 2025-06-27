@@ -22,7 +22,13 @@ class _SplashScreen extends State<SplashScreen> {
     Timer(const Duration(seconds: 2), () {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (BuildContext context) => LoginScreen()
+          builder: (BuildContext context) => MyHomePage(title: "home", user: User(
+            firstName: "Guest",
+            lastName: "",
+            email: "",
+            username: "",
+            password: "",
+          )),
         ),
       );
     });
