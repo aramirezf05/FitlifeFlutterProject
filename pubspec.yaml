@@ -44,6 +44,7 @@ dependencies:
   googleapis_auth: ^1.6.0
   google_sign_in: ^6.3.0
   extension_google_sign_in_as_googleapis_auth: ^2.0.12
+  flutter_launcher_icons: ^0.14.4
 
 dev_dependencies:
   flutter_test:
@@ -56,6 +57,10 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^5.0.0
 
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/512.png"
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -73,6 +78,7 @@ flutter:
      - assets/images/FitLifeLogo.png
      - assets/images/LogoApp-remove.png
      - assets/images/Icon-512.png
+     - assets/images/512.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
