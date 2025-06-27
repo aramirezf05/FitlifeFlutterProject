@@ -1,4 +1,4 @@
-package com.library.laibrary
+package com.library.fitlife
 
 import io.flutter.embedding.android.FlutterActivity
 

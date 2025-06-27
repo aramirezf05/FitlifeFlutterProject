@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:fitlife/main.dart';
-import 'package:fitlife/screens/login/login_screen.dart';
 import 'package:flutter/material.dart';
 import '../model/user.dart';
 import '../utils/string_constants.dart';

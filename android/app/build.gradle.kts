@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.library.laibrary"
+    namespace = "com.library.fitlife"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 

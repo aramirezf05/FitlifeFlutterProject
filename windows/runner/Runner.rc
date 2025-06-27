@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.library" "\0"
-            VALUE "FileDescription", "laibrary" "\0"
+            VALUE "FileDescription", "fitlife" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "laibrary" "\0"
+            VALUE "InternalName", "fitlife" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2025 com.library. All rights reserved." "\0"
-            VALUE "OriginalFilename", "laibrary.exe" "\0"
-            VALUE "ProductName", "laibrary" "\0"
+            VALUE "OriginalFilename", "fitlife.exe" "\0"
+            VALUE "ProductName", "fitlife" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

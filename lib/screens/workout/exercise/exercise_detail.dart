@@ -1,4 +1,3 @@
-import 'package:fitlife/model/routine.dart';
 import 'package:fitlife/model/user.dart';
 import 'package:fitlife/utils/fitlife_app_bar.dart';
 import 'package:fitlife/utils/string_constants.dart';
@@ -117,50 +116,6 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
         ),
       ),
     );
-  }
-
-  Widget _buildImagesCard(String title, String exerciseId, List<String> images) {
-    final String baseUrl = 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/';
-
-    return Card(
-      margin: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
-          ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: images.asMap().entries.map((entry) {
-                final index = entry.key;
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Image.network(
-                    '$baseUrl$exerciseId/$index.jpg',
-                    height: 120,
-                    errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-                      return Text('Failed to load image');
-                    },
-                  ),
-                );
-              }).toList(),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  void _addToRoutine() {
-    // Nothing to do here for now
-    Routine r = Routine(id: "1", name: "name", description: "description", exercises: []);
-    r.addExercise(widget.exercise);
-    widget.user.routines.add(r);
-
-    print('Añadido a la rutina');
   }
 
 }
