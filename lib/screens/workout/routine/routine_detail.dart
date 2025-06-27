@@ -4,6 +4,7 @@ import 'package:flutter/scheduler.dart';
 import '../../../model/routine.dart';
 import '../../../model/user.dart';
 import '../../../utils/fitlife_app_bar.dart';
+import '../../../utils/string_constants.dart';
 import '../exercise/exercise_detail.dart';
 
 class RoutineDetail extends StatefulWidget {
@@ -41,7 +42,7 @@ class _RoutineDetailState extends State<RoutineDetail> {
     _ticker = Ticker(_onTick);
 
     for (var exercise in widget.routine.exercises) {
-      exerciseSets[exercise.name] = [];
+      exerciseSets[capitalizeFirstLetter(exercise.name)] = [];
     }
   }
 
@@ -137,7 +138,7 @@ class _RoutineDetailState extends State<RoutineDetail> {
       itemCount: widget.routine.exercises.length,
       itemBuilder: (context, index) {
         final exercise = widget.routine.exercises[index];
-        final sets = exerciseSets[exercise.name]!;
+        final sets = exerciseSets[capitalizeFirstLetter(exercise.name)]!;
 
         return Card(
           margin: const EdgeInsets.symmetric(vertical: 8),
@@ -147,7 +148,7 @@ class _RoutineDetailState extends State<RoutineDetail> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ListTile(
-                  title: Text(exercise.name, style: TextStyle(fontWeight: FontWeight.bold)),
+                  title: Text(capitalizeFirstLetter(exercise.name), style: TextStyle(fontWeight: FontWeight.bold)),
                   trailing: Icon(Icons.arrow_forward_ios_rounded),
                   onTap: () {
                     Navigator.of(context).push(
@@ -175,7 +176,7 @@ class _RoutineDetailState extends State<RoutineDetail> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     ElevatedButton.icon(
-                      onPressed: () => _addSerieDialog(exercise.name),
+                      onPressed: () => _addSerieDialog(capitalizeFirstLetter(exercise.name)),
                       icon: Icon(Icons.add),
                       label: Text("Add set"),
                     ),
@@ -198,7 +199,7 @@ class _RoutineDetailState extends State<RoutineDetail> {
   void _removeExerciseFromRoutine(int index) {
     setState(() {
       final removedExercise = widget.routine.exercises.removeAt(index);
-      exerciseSets.remove(removedExercise.name);
+      exerciseSets.remove(capitalizeFirstLetter(removedExercise.name));
     });
 
     ScaffoldMessenger.of(context).showSnackBar(

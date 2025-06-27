@@ -221,7 +221,7 @@ class _MyHomePageState extends State<MyHomePage> {
             items: Exercise.musclesList.map((String muscle) {
               return DropdownMenuItem<String>(
                 value: muscle,
-                child: Text(muscle),
+                child: Text(capitalizeFirstLetter(muscle)),
               );
             }).toList(),
             onChanged: (String? newMuscle) {

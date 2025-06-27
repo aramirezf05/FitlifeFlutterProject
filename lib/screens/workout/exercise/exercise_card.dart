@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fitlife/model/exercise.dart';
 
 import '../../../model/user.dart';
+import '../../../utils/string_constants.dart';
 import 'exercise_detail.dart';
 
 class ExerciseCard extends StatelessWidget {
@@ -33,7 +34,7 @@ class ExerciseCard extends StatelessWidget {
                     value: isSelected,
                     onChanged: onSelected
                 ),
-                title: Text(exercise.name),
+                title: Text(capitalizeFirstLetter(exercise.name)),
               ),
               const SizedBox(height: 10),
             ],

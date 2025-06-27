@@ -31,7 +31,7 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
               children: [
                 Flexible(
                   child: Text(
-                    widget.exercise.name,
+                    capitalizeFirstLetter(widget.exercise.name),
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
                     maxLines: 6,
                     overflow: TextOverflow.ellipsis,
@@ -41,11 +41,11 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
             ),
             SizedBox(height: 16),
             _buildGifCard('Exercise Preview', widget.exercise.gifUrl),
-            _buildDetailCard('Description', widget.exercise.description),
-            _buildDetailCard('Difficulty', widget.exercise.difficulty),
-            _buildDetailCard('Category', widget.exercise.category),
-            _buildDetailCard('Equipment', widget.exercise.equipment),
-            _buildDetailCard('Primary Muscles', widget.exercise.bodyPart),
+            _buildDetailCard('Description', capitalizeFirstLetter(widget.exercise.description)),
+            _buildDetailCard('Difficulty', capitalizeFirstLetter(widget.exercise.difficulty)),
+            _buildDetailCard('Category', capitalizeFirstLetter(widget.exercise.category)),
+            _buildDetailCard('Equipment', capitalizeFirstLetter(widget.exercise.equipment)),
+            _buildDetailCard('Primary Muscles', capitalizeFirstLetter(widget.exercise.bodyPart)),
             _buildMusclesCard('Secondary Muscles', widget.exercise.secondaryMuscles),
             _buildInstructionsCard('Instructions', widget.exercise.instructions),
           ],
@@ -73,6 +73,9 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
               },
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+          ),
         ],
       ),
     );
@@ -90,11 +93,13 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
   }
 
   Widget _buildMusclesCard(String title, List<String> muscles) {
+    final List<String> formattedMuscles = muscles.map((muscle) => capitalizeFirstLetter(muscle)).toList();
+
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 8.0),
       child: ListTile(
         title: Text(title),
-        subtitle: Text(muscles.isEmpty ? 'Not available' : muscles.join(', ')),
+        subtitle: Text(muscles.isEmpty ? 'Not available' : formattedMuscles.join(', ')),
       ),
     );
   }
