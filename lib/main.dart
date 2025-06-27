@@ -105,8 +105,7 @@ class _MyHomePageState extends State<MyHomePage> {
         .map((entry) => entry.key)
         .toList();
 
-    String name = '';
-    String description = '';
+    String name = 'Default routine';
 
     await showDialog(
       context: context,
@@ -119,11 +118,7 @@ class _MyHomePageState extends State<MyHomePage> {
               TextField(
                 decoration: InputDecoration(labelText: "Name"),
                 onChanged: (value) => name = value,
-              ),
-              TextField(
-                decoration: InputDecoration(labelText: "Description"),
-                onChanged: (value) => description = value,
-              ),
+              )
             ],
           ),
           actions: [
@@ -133,9 +128,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             TextButton(
               onPressed: () {
-                if (name.isNotEmpty) {
                   Navigator.pop(context);
-                }
               },
               child: Text("Create"),
             ),
@@ -148,7 +141,6 @@ class _MyHomePageState extends State<MyHomePage> {
       final newRoutine = Routine(
         id: DateTime.now().millisecondsSinceEpoch.toString(),
         name: name,
-        description: description,
         exercises: selected,
       );
 

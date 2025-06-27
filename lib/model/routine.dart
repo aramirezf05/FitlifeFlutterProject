@@ -2,8 +2,7 @@ import 'package:fitlife/model/exercise.dart';
 
 class Routine {
   final String id;
-  final String name;
-  final String description;
+  String name = "Default Routine";
   final List<Exercise> exercises;
   late int sets;
   late int reps;
@@ -12,7 +11,6 @@ class Routine {
   Routine({
     required this.id,
     required this.name,
-    required this.description,
     required this.exercises,
     this.sets = 0,
     this.reps = 0,

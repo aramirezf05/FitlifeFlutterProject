@@ -37,7 +37,6 @@ class _RoutineDetailState extends State<RoutineDetail> {
   void initState() {
     super.initState();
     routineNameController.text = widget.routine.name;
-    routineDescriptionController.text = widget.routine.description;
     exercisesController.text = widget.routine.exercises.join(', ');
     seriesController.text = widget.routine.sets.toString();
     repetitionsController.text = widget.routine.reps.toString();
@@ -72,7 +71,17 @@ class _RoutineDetailState extends State<RoutineDetail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: FitLifeAppBar(title: widget.routine.name),
+      appBar: FitLifeAppBar(
+        title: widget.routine.name,
+        actions: [
+          IconButton(
+          icon: Icon(Icons.edit),
+          tooltip: 'Rename routine',
+          onPressed: () {
+            _showRenameDialog();
+          },
+    ),
+    ],),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           Navigator.push(
@@ -305,6 +314,41 @@ class _RoutineDetailState extends State<RoutineDetail> {
           ),
         ],
       ),
+    );
+  }
+
+  void _showRenameDialog() {
+    final TextEditingController _nameController = TextEditingController(text: widget.routine.name);
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Rename Routine'),
+          content: TextField(
+            controller: _nameController,
+            decoration: InputDecoration(labelText: 'New name'),
+          ),
+          actions: [
+            TextButton(
+              child: Text('Cancel'),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+            ElevatedButton(
+              child: Text('Rename'),
+              onPressed: () {
+                final newName = _nameController.text.trim();
+                if (newName.isNotEmpty) {
+                  setState(() {
+                    widget.routine.name = newName;
+                  });
+                  Navigator.of(context).pop();
+                }
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }
