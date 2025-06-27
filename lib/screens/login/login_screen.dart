@@ -55,7 +55,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 shadowColor: Colors.blueGrey,
-                elevation: 5,
               ),
               child: Text(
                 'Login',
