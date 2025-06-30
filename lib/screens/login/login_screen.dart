@@ -5,6 +5,7 @@ import 'package:fitlife/utils/string_constants.dart';
 import 'package:flutter/material.dart';
 
 import '../../model/user.dart';
+import '../../model/user_manager.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});

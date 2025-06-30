@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../main.dart';
 import '../../model/user.dart';
+import '../../model/user_manager.dart';
 import '../../utils/fitlife_input_textfield.dart';
 import '../../utils/number_constants.dart';
 import '../../utils/string_constants.dart';

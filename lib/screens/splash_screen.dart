@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:fitlife/main.dart';
+import 'package:fitlife/screens/login/login_screen.dart';
 import 'package:flutter/material.dart';
 import '../model/user.dart';
 import '../utils/string_constants.dart';
@@ -21,13 +22,7 @@ class _SplashScreen extends State<SplashScreen> {
     Timer(const Duration(seconds: 2), () {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (BuildContext context) => MyHomePage(title: "home", user: User(
-            firstName: "Guest",
-            lastName: "",
-            email: "",
-            username: "",
-            password: "",
-          )),
+          builder: (BuildContext context) => LoginScreen(),
         ),
       );
     });

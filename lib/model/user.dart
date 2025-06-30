@@ -29,28 +29,33 @@ class User {
   void removeRoutine(Routine routine) {
     routines.remove(routine);
   }
-}
 
-class UserManager {
-  final List<User> _registeredUsers = [];
-
-  void registerUser(User user) {
-    _registeredUsers.add(user);
+  Map<String, dynamic> toJson() {
+    return {
+      'firstName': firstName,
+      'lastName': lastName,
+      'email': email,
+      'username': username,
+      'password': password,
+      'weight': weight,
+      'height': height,
+      'routines': routines.map((r) => r.toJson()).toList(),
+    };
   }
 
-  User? login(String username, String password) {
-    for (var user in userManager.registeredUsers) {
-      print('User: ${user.username}');
-    }
-    for (var user in _registeredUsers) {
-      if (user.username == username && user.password == password) {
-        return user;
-      }
-    }
-    return null;
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
+      firstName: json['firstName'],
+      lastName: json['lastName'],
+      email: json['email'],
+      username: json['username'],
+      password: json['password'],
+      weight: (json['weight'] as num).toDouble(),
+      height: (json['height'] as num).toDouble(),
+      routines: (json['routines'] as List<dynamic>)
+          .map((r) => Routine.fromJson(r))
+          .toList(),
+    );
   }
-
-  List<User> get registeredUsers => _registeredUsers;
 }
 
-final userManager = UserManager();

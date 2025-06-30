@@ -1,9 +1,11 @@
+import 'package:fitlife/model/user_manager.dart';
 import 'package:fitlife/screens/settings/settings_screen.dart';
 import 'package:fitlife/screens/splash_screen.dart';
 import 'package:fitlife/screens/workout/exercise/exercise_card.dart';
 import 'package:fitlife/screens/workout/routine/routine_detail.dart';
 import 'package:fitlife/utils/string_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'model/routine.dart';
 import 'model/user.dart';
 import 'model/exercise.dart';
@@ -25,6 +27,29 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   ThemeMode _themeMode = ThemeMode.system;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadTheme();
+    userManager.initialize();
+  }
+
+  void _loadTheme() async {
+    final prefs = await SharedPreferences.getInstance();
+    bool isDark = prefs.getBool('isDarkMode') ?? false;
+    setState(() {
+      _themeMode = isDark ? ThemeMode.dark : ThemeMode.light;
+    });
+  }
+
+  void changeTheme(ThemeMode mode) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('isDarkMode', mode == ThemeMode.dark);
+    setState(() {
+      _themeMode = mode;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,12 +77,6 @@ class _MyAppState extends State<MyApp> {
       home: const SplashScreen(),
       debugShowCheckedModeBanner: false,
     );
-  }
-
-  void changeTheme(ThemeMode themeMode) {
-    setState(() {
-      _themeMode = themeMode;
-    });
   }
 }
 
@@ -148,6 +167,7 @@ class _MyHomePageState extends State<MyHomePage> {
         widget.user.routines.add(newRoutine);
         selectedExercises.updateAll((key, value) => false);
       });
+      await userManager.saveUsers();
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Routine '$name' created")),

@@ -36,6 +36,25 @@ class Exercise {
     this.reps = 0,
   });
 
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'bodyPart': bodyPart,
+      'equipment': equipment,
+      'gifUrl': gifUrl,
+      'target': target,
+      'secondaryMuscles': secondaryMuscles,
+      'instructions': instructions,
+      'description': description,
+      'difficulty': difficulty,
+      'category': category,
+      'liftedWeight': liftedWeight,
+      'sets': sets,
+      'reps': reps,
+    };
+  }
+
   static const List<String> musclesList = [
     "abductors", "abs", "adductors", "biceps", "calves", "cardiovascular system",
     "delts", "forearms", "glutes", "hamstrings", "lats", "levator scapulae",
